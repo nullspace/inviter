@@ -41,7 +41,13 @@ class RsvpsController < ApplicationController
 
 #     # POST /rsvps
 #     # POST /rsvps.xml
-#     def create
+     def create
+        InviteMailer.deliver_invite(params[:rsvp], current_user)
+        respond_to do |format|
+            format.html { redirect_to :back }
+            format.xml  { head :ok }
+        end
+     end
 #         @rsvp = Rsvp.new(params[:rsvp])
 
 #         respond_to do |format|
@@ -86,7 +92,7 @@ class RsvpsController < ApplicationController
         respond_to do |format|
             format.html { redirect_to :back }
             format.xml  { head :ok }
-        end
-    end
+        end 
+   end
     
 end
