@@ -44,7 +44,7 @@ class InviteController < ApplicationController
         @rsvp.update_attributes(rsvp)
                 
         if oldemail != @rsvp.person.email
-            InviteMailer.deliver_changed(@rsvp)
+            InviteMailer.deliver_changed(@rsvp, current_user)
         end
         
         respond_to do |format|
