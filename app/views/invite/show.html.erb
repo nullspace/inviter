@@ -10,7 +10,7 @@
 <%= address(@rsvp.event.location) %>
 </div>
 <div id="map"></div>
-Click the Map to Get Directions
+<!-- TODO add back in... Click the Map to Get Directions -->
 </td></tr></table>
 </div>
 
@@ -65,6 +65,26 @@ Click the Map to Get Directions
 <% @rsvp.event.na_list.each do |r| %>
 <%= format_invitee(r) %>
 <% end %>
+</table>
+</div>
+
+<div id="software_info">
+<h4>About this software</h4>
+<table>
+<tr>
+        This system is a Ruby on Rails application, which was originally 
+	authored by Sean Dague and is hosted on 
+	<a href="http://github.com">github.com</a> at 
+	<a href="https://github.com/sdague/inviter">
+	https://github.com/sdague/inviter</a>.  It is free software 
+	licensed under the <a href="http://www.gnu.org/licenses/agpl.html">
+	GNU Affero General Public License</a>.
+	<p>
+	The <a href="<%= SITE_CONFIG['server'] %>"><%= SITE_CONFIG['server'] %></a>
+	 version of this software is hosted at 
+	<a href="<%= SITE_CONFIG['github_loc'] %>">
+	<%= SITE_CONFIG['github_loc'] %></a> and the source code
+	can be obtained there.
 </table>
 </div>
 

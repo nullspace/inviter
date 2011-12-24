@@ -48,3 +48,27 @@ rails up, sorry, there are lots better places in the world to get that
 help.
 
 Share and enjoy!
+
+
+== nullspace addendum ==
+Sean's app is exactly what I was looking for.  I had an Evite 
+experience that - although minor - was fairly frustrating and is the 
+straw that broke the camel's back, so to speak.  In any case, I have 
+made only minor modifications so far, but I gladly share them with 
+anyone else who is interested in hosting this application.
+
+So far, I have done the following:
+ - Updated google maps API to v3 (no need for a key), broke directions
+ - Minor changes to upgrade rails
+ - Added a site.yml f the user-specific entries
+ - Minor changes to get it to work on hostmonster
+
+Todo:
+ - Restore directions capability
+ - Encode host in invite
+
+Consistent with the requirements of the AGPL, all of my contributions 
+are provided under the AGPL.  If I later write any significant or 
+inividually useful fragments/files, I will be happy to release those 
+under more permissive licenses.  Obviously inviter remains under AGPL
+per the original license.

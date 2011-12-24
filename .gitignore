@@ -1,0 +1,10 @@
+*~
+public/.htaccess
+public/dispatch.cgi
+public/dispatch.fcgi
+public/dispatch.rb
+log/*
+config/database.yml
+config/site.yml
+
+

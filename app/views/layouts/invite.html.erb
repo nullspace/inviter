@@ -2,73 +2,47 @@
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <title>InviteR (beta)</title>  
     <%= stylesheet_link_tag 'scaffold' %>
     <%= stylesheet_link_tag 'inviter' %>
-    <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAGD6lcN8PyGdKtuuIr1yBGhSDk2RkKijL8JcsdqfwC_pup1h2ShRRSRsHrJwt_tBp8wCQENHCRG6wAg"
-      type="text/javascript">
-    </script>
-
-    <script type="text/javascript">
-      var map = null;
-      var geocoder = null;
-      function createMarker(point) {
-          var marker = new GMarker(point)
-
-          GEvent.addListener(marker, "click", function() {
-            marker.openInfoWindowHtml("<b><%= @rsvp.event.location.name %></b>");
-          });
-          return marker;
-        }
-
-    
-
-    function showAddress(address) {
-      if (geocoder) {
-        geocoder.getLatLng(
-          address,
-          function(point) {
-            if (!point) {
-              alert(address + " not found");
-            } else {
-              map.setCenter(point, 13);
-              var marker = new GMarker(point);
-              directions = "<br/><a target='_new' href='http://maps.google.com/maps?f=d&hl=en&daddr=<%= @address.gsub(/ /,'+') %>'>Directions</a>"
-              GEvent.addListener(marker, "click", function() {
-                 marker.openInfoWindowHtml("<b><%= @rsvp.event.location.name %></b><br/>" + address + directions);
-               });
-              map.addOverlay(marker);
-            }
-          }
-        );
+<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript">
+  var geocoder;
+  var map;
+  function codeAddress(address) {
+    //var address = '493 southwood ave, 94086'; //document.getElementById("address").value;
+    geocoder.geocode( { 'address': address}, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        map.setCenter(results[0].geometry.location);
+        var marker = new google.maps.Marker({
+            map: map, 
+            position: results[0].geometry.location
+        });
+      } else {
+        alert("Geocode was not successful for the following reason: " + status);
       }
+    });
+  }
+  function initialize() {
+    geocoder = new google.maps.Geocoder();
+	var latlng = new google.maps.LatLng(37.3714, -122.025);
+    var myOptions = {
+      zoom: 13,
+      center: latlng,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
     }
+    map = new google.maps.Map(document.getElementById("map"), myOptions);
+    codeAddress("<%= @address %>");
+  }
 
-    
-
-    function load() {
-      if (GBrowserIsCompatible()) {
-        map = new GMap2(document.getElementById("map"));
-        map.addControl(new GSmallMapControl());
-
-        map.setCenter(new GLatLng(37.4419, -122.1419), 13);
-        geocoder = new GClientGeocoder();
-//        GEvent.addListener(map, "click", function() {
-//            window.open("http://maps.google.com/maps?f=q&hl=en&geocode=&q=<%= @address
-//      %>", "_new");
-//         });
-
-        showAddress("<%= @address %>");
-      }
-    }
-
-    </script>
-  </head>
-  <body onload="load()" >
-    <div id="content">
+</script>
+</head>
+<body onload="initialize()">
+<div id="content">
     <p style="color: green"><%= flash[:notice] %></p>
     <%= yield %>
-    </div>
-  </body>
+</div>
+</body>
 </html>

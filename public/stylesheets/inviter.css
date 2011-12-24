@@ -26,7 +26,13 @@ td.attend_na {
     font-weight: bold }
 
 h1 {
-    background-color: #660000;
+    background-color: #000066;
+    color: white;
+    line-height: 2em;
+    text-align: center;
+}
+h4 {
+    background-color: #000066;
     color: white;
     line-height: 2em;
     text-align: center;
