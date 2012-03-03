@@ -16,7 +16,7 @@
     <td><%=h event.description %></td>
     <td><%=h event.seed %></td>
     <td><%=h event.date %></td>
-    <td><%=h event.start %></td>
+    <td><%=h event.start.strftime("%l:%M%p") %></td>
     <td><%=h event.location_id %></td>
     <td><%= link_to 'Show', event %></td>
     <td><%= link_to 'Edit', edit_event_path(event) %></td>
