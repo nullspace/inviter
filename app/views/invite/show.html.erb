@@ -6,8 +6,12 @@
 </div>
 </td><td>
 <div id="address" class="padding">
-<b>Event Location</b><br/>
+<a target='_new' href = 'http://maps.google.com/maps?f=d&hl=en&daddr=<%= @address.gsub(/ /,'+') %>'>
+<b>Event Location  (Click for directions)</b>
+</a><br/>
+<a target='_new' href = 'http://maps.google.com/maps?f=d&hl=en&daddr=<%= @address.gsub(/ /,'+') %>'>
 <%= address(@rsvp.event.location) %>
+</a>
 </div>
 <div id="map"></div>
 <!-- TODO add back in... Click the Map to Get Directions -->
