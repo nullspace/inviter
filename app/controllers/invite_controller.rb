@@ -7,7 +7,7 @@ class InviteController < ApplicationController
     def catch_exceptions
         yield
     rescue => exception
-        logger.debug "Caught exception! #{exception}"
+        logger.debug "Caught exception in invite_controller! #{exception}"
         redirect_to(:controller => "sorry")
     end
     
@@ -22,6 +22,7 @@ class InviteController < ApplicationController
         @person = @rsvp.person
         
         if key != @rsvp.key
+            logger.debug "Bad key provided in invite_controller - params: #{params}"
             redirect_to(:controller => "sorry")
             return
         end
@@ -35,6 +36,7 @@ class InviteController < ApplicationController
         
         @rsvp = Rsvp.find(rsvp[:id])
         if rsvp[:key] != Digest::MD5.hexdigest(@rsvp.event.seed + @rsvp.person.email)
+            logger.debug "Bad key provided in invite_controller update - params: #{params}"
             redirect_to(:controller => "sorry")
             return
         end
