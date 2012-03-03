@@ -29,7 +29,10 @@ class EventsController < ApplicationController
     # GET /events/new
     # GET /events/new.xml
     def new
+        require 'securerandom'
+        random_string = ActiveSupport::SecureRandom.hex(10)
         @event = Event.new
+	@event['seed'] = random_string
         @locations = current_user.locations
 
         respond_to do |format|
