@@ -1,7 +1,7 @@
 class InviteMailer < ActionMailer::Base
 
     headers = {
-        "X-Mailer" => "InviteR (beta) by Sean Dague"
+        "X-Mailer" => "InviteR from github, originally by Sean Dague"
     }
     
     def invite(rsvp, user, sent_at = Time.now)
