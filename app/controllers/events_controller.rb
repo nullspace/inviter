@@ -119,16 +119,32 @@ class EventsController < ApplicationController
 
     def newinvitees
         event = current_user.events.find(params[:id])
-        list = params[:list].split(/\s+/)
-        list.each do |email|
-            person = Person.find(:first, :conditions => ["email = ?", email])
+
+
+	logger.debug "Logger Working!"
+	logger.debug "Params |||#{params[:list]}|||"
+	header = TMail::HeaderField.new('to', params[:list].gsub(";",',').gsub("\n",','))
+
+	header.addrs.each do |tMailAddressItem|
+        #list = params[:list].split(/,\s*/)
+        #list.each do |email|
+            #unless email =~ /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
+            #errors.add(:email_addresses, "are invalid due to #{email}")
+            person = Person.find(:first, :conditions => ["email = ?", tMailAddressItem.email])
+	logger.debug "Email #{tMailAddressItem.email}"
+	logger.debug "Name #{tMailAddressItem.name}"
             if not person
+	logger.debug "Not person"
                 person = Person.new
-                person.email = email
+                person.email = tMailAddressItem.email
+		person.name = tMailAddressItem.name
                 person.save
+            else
+	logger.debug "Is person"
             end
             rsvp = Rsvp.find(:first, :conditions => ["person_id = ? and event_id = ?", person.id, event.id])
             if not rsvp
+	logger.debug "Not rsvp"
                 rsvp = event.rsvps.create({
                                               :person_id => person.id,
                                               :state => "na"
