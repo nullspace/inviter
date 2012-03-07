@@ -1,12 +1,17 @@
 <div id="top">
 <h1><%=h @rsvp.event.name %></h1>
-<table><tr valign="top"><td>
+<table>
+<tr valign="top"><td>
 <div id="eventdetails" class="padding" ><%= @rsvp.event.description.gsub(/(\r\n)+/, "<br/><br/>")
                                           %>
 </div>
 </td><td>
 <div id="address" class="padding">
+
+<b>Start:   <%=h @rsvp.event.start.strftime("%l:%M%p") %> </b> <br/>
+
 <a target='_new' href = 'http://maps.google.com/maps?f=d&hl=en&daddr=<%= @address.gsub(/ /,'+') %>'>
+
 <b>Event Location  (Click for directions)</b>
 </a><br/>
 <a target='_new' href = 'http://maps.google.com/maps?f=d&hl=en&daddr=<%= @address.gsub(/ /,'+') %>'>
