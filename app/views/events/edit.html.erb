@@ -20,12 +20,12 @@
 
 <p>
   <b>Date</b><br />
-  <%= date_select(f,:date,:start_year => Time.now.year )%>
+  <%= date_select(f,:date,:start_year => Time.now.year, :default => @event.date )%>
 </p>
 
 <p>
   <b>Start</b><br />
-  <%= time_select f, :start %>
+  <%= time_select(f, :start, :default => @event.start ) %>
 </p>
 
 <p>
