@@ -7,4 +7,4 @@ log/*
 config/database.yml
 config/site.yml
 
-
+mScript.rb
