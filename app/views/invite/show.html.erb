@@ -8,7 +8,9 @@
 </td><td>
 <div id="address" class="padding">
 
-<b>Start:   <%=h @rsvp.event.start.strftime("%l:%M%p") %> </b> <br/>
+<b>Date:  </b>   <%=h @rsvp.event.date.strftime("%B %d, %Y") %> <br/>
+<b>Start: </b>   <%=h @rsvp.event.start.strftime("%l:%M%p") %> <br/>
+<br/>
 
 <a target='_new' href = 'http://maps.google.com/maps?f=d&hl=en&daddr=<%= @address.gsub(/ /,'+') %>'>
 
