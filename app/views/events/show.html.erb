@@ -29,23 +29,23 @@
 <table width="100%">
 <tr><th width="200">Name</th><th width="200">Last Visited</th><th width="50">Number</th><th>Message</th></tr>
 <tr><td class="attend_yes" colspan=5>Will Attend - <%= @event.yes_number %></th></tr>
-<% @event.yes_list.each do |r| %>
+<% (@event.yes_list.sort! { |a,b| a.person.name.downcase <=> b.person.name.downcase }).each do |r| %>
 <%= format_invitee_admin(r) %>
 <% end %>
 
 <tr><td class="attend_maybe" colspan=5>May Attend - <%= @event.maybe_number %></th></tr>
 
-<% @event.maybe_list.each do |r| %>
+<% (@event.maybe_list.sort! { |a,b| a.person.name.downcase <=> b.person.name.downcase }).each do |r| %>
 <%= format_invitee_admin(r) %>
 <% end %>
 
 <tr><td class="attend_no" colspan=5>Won't Attend - <%= @event.no_number %></th></tr>
-<% @event.no_list.each do |r| %>
+<% (@event.no_list.sort! { |a,b| a.person.name.downcase <=> b.person.name.downcase }).each do |r| %>
 <%= format_invitee_admin(r) %>
 <% end %>
 
 <tr><td class="attend_na" colspan=5>Haven't Responded - <%= @event.na_number %></th></tr>
-<% @event.na_list.each do |r| %>
+<% (@event.na_list.sort! { |a,b| a.person.name.downcase <=> b.person.name.downcase }).each do |r| %>
 <%= format_invitee_admin(r) %>
 <% end %>
 </table>
