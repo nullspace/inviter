@@ -121,35 +121,35 @@ class EventsController < ApplicationController
         event = current_user.events.find(params[:id])
 
 
-	logger.debug "Logger Working!"
-	logger.debug "Params |||#{params[:list]}|||"
-	header = TMail::HeaderField.new('to', params[:list].gsub(";",',').gsub("\n",','))
+	substitudedString = params[:list].gsub(";",',').gsub("\r\n",',').gsub("\r",',').gsub("\n",',')
+	#logger.info "Logging is Working!"
+	logger.info "Params |||#{substitudedString}|||"
+	header = TMail::HeaderField.new('to', substitudedString)
 
 	header.addrs.each do |tMailAddressItem|
         #list = params[:list].split(/,\s*/)
         #list.each do |email|
             #unless email =~ /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
             #errors.add(:email_addresses, "are invalid due to #{email}")
-            person = Person.find(:first, :conditions => ["email = ?", tMailAddressItem.email])
-	logger.debug "Email #{tMailAddressItem.email}"
-	logger.debug "Name #{tMailAddressItem.name}"
+            person = Person.find(:first, :conditions => ["email = ?", tMailAddressItem.address])
+		logger.info "Email #{tMailAddressItem.address}    -   Name #{tMailAddressItem.name}"
             if not person
-	logger.debug "Not person"
+		#logger.info "Not person, creating..."
                 person = Person.new
-                person.email = tMailAddressItem.email
+                person.email = tMailAddressItem.address
 		person.name = tMailAddressItem.name
                 person.save
-            else
-	logger.debug "Is person"
             end
             rsvp = Rsvp.find(:first, :conditions => ["person_id = ? and event_id = ?", person.id, event.id])
             if not rsvp
-	logger.debug "Not rsvp"
+		#logger.info "Not rsvp"
                 rsvp = event.rsvps.create({
                                               :person_id => person.id,
                                               :state => "na"
                                           })
                 InviteMailer.deliver_invite(rsvp, current_user)
+	    else
+		#logger.info "InviteR thinks an rsvp already exists"
             end
         end
 
