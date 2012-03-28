@@ -15,8 +15,9 @@ module InviteHelper
         resend = "Resending email to #{r.person.email}.  Are you sure?"
         html = "<tr valign='top'><td>#{h(r.person.name)} &lt;#{h(r.person.email)}&gt;</td>"
         html += "<td><i>#{date}</i></td><td>#{r.num or 1}</td>"
-        html += "<td>#{h(r.response)}</td><td>#{r.id}</td>"
-        html += "<td>#{link_to 'Resend', r, :confirm => resend, :method => :post}</td></tr>"
+        html += "<td>#{h(r.response)}</td>"
+      html += "<td>http://inviter.thinhorn.com/invite/show/#{r.id}?key=#{r.key}</td>"
+        #html += "<td>#{link_to 'View', r, :method => :post}</td></tr>"
         html += "<td>#{link_to 'Remove', r, :confirm => uninvite, :method => :delete}</td></tr>"
         return html
     end
